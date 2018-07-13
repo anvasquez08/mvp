@@ -34,7 +34,10 @@ class Search extends React.Component {
               saveToDataBase={this.props.saveToDataBase}
               cities={this.props.cities}
               dates={this.props.dates}
-              venues={this.props.venues}/>  
+              venues={this.props.venues}
+              filteredResultsonClick={this.props.filteredResultsonClick}
+              filteredResults={this.props.filteredResults}
+              viewFiltered={this.props.viewFiltered}/>  
         }
       </div>
       )

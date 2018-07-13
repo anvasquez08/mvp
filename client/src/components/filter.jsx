@@ -5,9 +5,17 @@ class Filter extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-
+      value: ''
     }
+    this.onChange = this.onChange.bind(this);
   }
+
+  onChange(e) {
+    let key = e.target.name;
+    let val = e.target.value;
+    this.props.filteredResultsonClick(key, val)
+    this.setState({value: e.target.value}, ()=> console.log(this.state.value))
+  } 
 
 
   render() {
@@ -16,7 +24,7 @@ class Filter extends React.Component {
       <div>
       {console.log(this.props)}
       <label>Cities:</label>
-        <select className="dropdown">
+        <select className="dropdown" onChange={this.onChange} value={this.state.value} name="city">
         {
           this.props.cities.map((city, i) => {
             return (

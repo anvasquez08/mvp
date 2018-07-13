@@ -14,6 +14,7 @@ class App extends React.Component {
       viewFavorites: false,
       savedFavortes: [],
       eventResults: [],
+      viewResults: [],
       filteredResults: [],
       cities: [],
       dates: [], 
@@ -24,6 +25,7 @@ class App extends React.Component {
     this.fetchFromDatabase = this.fetchFromDatabase.bind(this);
     this.deleteFromDatabase = this.deleteFromDatabase.bind(this);
     this.setResultAndCategories = this.setResultAndCategories.bind(this);
+    this.filteredResultsonClick = this.filteredResultsonClick.bind(this);
 	}
 
   searchForEvents(e, keyword) {
@@ -58,17 +60,18 @@ class App extends React.Component {
       dates.push(event.date)
       venues.push(event.venueName)
     }) 
-    this.setState({eventResults: data, cities, dates, venues});
+    this.setState({eventResults: data, viewResults: data, cities, dates, venues});
+
   }
 
-  filteredResults(category, item) {
+  filteredResultsonClick(category, item) {
     let filteredResults = [];
     this.state.eventResults.forEach(event => {
       if (event[category] === item) {
         filteredResults.push(event)
       }
     })
-    this.setState({filteredResults}, () => {console.log(this.state.filteredResults)})
+    this.setState({viewResults: filteredResults})
   }
 
 	render() {
@@ -84,11 +87,13 @@ class App extends React.Component {
             this.state.viewFavorites === false ? (
               <div>
                   <Search searchForEvents={this.searchForEvents}
-                          results={this.state.eventResults}
+                          results={this.state.viewResults}
                           saveToDataBase={this.saveToDataBase}
                           cities={this.state.cities}
                           dates={this.state.dates}
-                          venues={this.state.venues}/>
+                          venues={this.state.venues}
+                          filteredResultsonClick={this.filteredResultsonClick}
+                          filteredResults={this.state.filteredResults}/>
               </div>
               ) : (
               <div>
