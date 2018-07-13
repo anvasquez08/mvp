@@ -8,10 +8,10 @@ class Nav extends React.Component {
 	render() {
 		return (
 			<nav className="navbar navbar-default">
-				 	<a className="navbar-brand" href="#">MVP</a>
+				 	<a className="navbar-brand" >MVP</a>
 			</nav>
 			)
 	}
 }
 
-export default Nav;
+export default Nav;//float:right;
