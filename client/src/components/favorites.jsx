@@ -25,7 +25,7 @@ class Favorites extends React.Component {
                 <div>Venue Name: {event.venueName}</div>
                 <div>Zipcode: {event.zipcode}</div>   
                 <img src={event.image}></img>   
-                <button onClick={() => {this.props.saveToDataBase(event)}}>Save to Favorites</button>              
+                <button onClick={() => {this.props.deleteFromDatabase(event.id)}}>Delete from Favorites</button>              
               </div>
             )
         })

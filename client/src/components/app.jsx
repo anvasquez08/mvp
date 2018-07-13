@@ -3,7 +3,6 @@ import axios from 'axios';
 
 import Nav from './nav.jsx';
 import Search from './search.jsx';
-import Results from './results.jsx';
 import Favorites from './favorites.jsx';
 
 
@@ -12,19 +11,25 @@ class App extends React.Component {
 	constructor(props) {
 		super(props)
     this.state = {
-      eventResults: [],
+      viewFavorites: false,
       savedFavortes: [],
-      viewFavorites: false
+      eventResults: [],
+      filteredResults: [],
+      cities: [],
+      dates: [], 
+      venues: []
     }
     this.searchForEvents = this.searchForEvents.bind(this);
     this.saveToDataBase = this.saveToDataBase.bind(this);
     this.fetchFromDatabase = this.fetchFromDatabase.bind(this);
+    this.deleteFromDatabase = this.deleteFromDatabase.bind(this);
+    this.setResultAndCategories = this.setResultAndCategories.bind(this);
 	}
 
   searchForEvents(e, keyword) {
     e.preventDefault()
     axios.post(`/events/${keyword}`)
-    .then(response => {this.setState({eventResults: response.data})})
+    .then(response => { this.setResultAndCategories(response.data) })
     .catch(err => console.log('ERROR', err))
   }
 
@@ -36,17 +41,35 @@ class App extends React.Component {
 
   fetchFromDatabase(){
     axios.get('/events')
-    .then(response => {
-      console.log('this is saved in the database', response)
-      this.setState({savedFavortes: response.data})
-    })
+    .then(response => { this.setState({savedFavortes: response.data}) })
     .catch(err => console.log('couldnt fetch', err))
   }
 
-  deleteFromDatabse() {
-    axios.delete()
+  deleteFromDatabase(id) {
+    axios.delete(`/events/${id}`)
+    .then(res => {this.fetchFromDatabase()})
+    .catch(err => console.log(err, 'ERROR'))
   }
 
+  setResultAndCategories(data) {
+    let cities = [], dates = [], venues = [];
+    data.forEach(event => {
+      cities.push(event.city)
+      dates.push(event.date)
+      venues.push(event.venueName)
+    }) 
+    this.setState({eventResults: data, cities, dates, venues});
+  }
+
+  filteredResults(category, item) {
+    let filteredResults = [];
+    this.state.eventResults.forEach(event => {
+      if (event[category] === item) {
+        filteredResults.push(event)
+      }
+    })
+    this.setState({filteredResults}, () => {console.log(this.state.filteredResults)})
+  }
 
 	render() {
 		return (
@@ -55,19 +78,23 @@ class App extends React.Component {
         <div className="container-fluid">
           <button className="btn btn-primary" style={{float:'right'}} 
                   onClick={() => {this.setState({viewFavorites: !this.state.viewFavorites})}}>
-                  {this.state.viewFavorites ? 'Saved Favorites' : 'View Search Results'}
+                  {this.state.viewFavorites ? 'View Saved Favorites' : 'View Search Results'}
           </button>
           {
             this.state.viewFavorites === false ? (
               <div>
-                  <Search searchForEvents={this.searchForEvents}/>
-                  <Results results={this.state.eventResults}
-                           saveToDataBase={this.saveToDataBase}/>
+                  <Search searchForEvents={this.searchForEvents}
+                          results={this.state.eventResults}
+                          saveToDataBase={this.saveToDataBase}
+                          cities={this.state.cities}
+                          dates={this.state.dates}
+                          venues={this.state.venues}/>
               </div>
               ) : (
               <div>
                   <Favorites savedFavortes={this.state.savedFavortes} 
-                            fetchFromDatabase={this.fetchFromDatabase}/>
+                            fetchFromDatabase={this.fetchFromDatabase}
+                            deleteFromDatabase={this.deleteFromDatabase} />
               </div>
               )
           }

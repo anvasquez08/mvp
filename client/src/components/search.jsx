@@ -1,4 +1,5 @@
 import React from 'react';
+import Results from './results.jsx';
 
 class Search extends React.Component {
   
@@ -18,17 +19,28 @@ class Search extends React.Component {
     return (
       <div>
         <form>
-        <label> Keyword: 
-          <input name="keyword" 
+        <label> Search by Artist Name: 
+          <input name="keyword"
+                 className="form-control"  
                  type="text"   
                  value={this.state.keyword} 
                  onChange={this.onChange}/>
         </label>
-        <button onClick={(e) => {this.props.searchForEvents(e, this.state.keyword)}}>Search</button>
-        </form>    
+        <button className="btn btn-primary" onClick={(e) => {this.props.searchForEvents(e, this.state.keyword)}}>Search</button>
+        </form>  
+        {
+          this.props.results.length > 0 && 
+            <Results results={this.props.results}
+              saveToDataBase={this.props.saveToDataBase}
+              cities={this.props.cities}
+              dates={this.props.dates}
+              venues={this.props.venues}/>  
+        }
       </div>
       )
   }
 }
 
 export default Search;
+
+        

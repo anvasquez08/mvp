@@ -1,4 +1,5 @@
 import React from 'react';
+import Filter from './filter.jsx';
 
 class Results extends React.Component {
 
@@ -10,7 +11,8 @@ class Results extends React.Component {
     return (
       <div>
       <h4>Results: </h4>
-      {console.log(this.props.results)}
+      <Filter result={this.props.results} cities={this.props.cities} 
+              dates={this.props.dates} venues={this.props.venues}/>
         {
           this.props.results.map((event, i) => {
             return (
@@ -23,7 +25,7 @@ class Results extends React.Component {
                 <div>Venue Name: {event.venueName}</div>
                 <div>Zipcode: {event.zipcode}</div>   
                 <img src={event.image}></img>   
-                <button onClick={() => {this.props.saveToDataBase(event)}}>Delete from Favorites</button>              
+                <button onClick={() => {this.props.saveToDataBase(event)}}>Save to Favorites</button>              
               </div>
               )
           })
