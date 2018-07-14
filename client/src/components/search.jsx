@@ -18,16 +18,21 @@ class Search extends React.Component {
   render() {
     return (
       <div>
+        <div className="panel panel-primary">
         <form>
-        <label> Search by Artist Name: 
+        <h4>Search by Artist Name:</h4>
+        <label>
           <input name="keyword"
-                 className="form-control"  
+                 className="form-control-sm"  
                  type="text"   
                  value={this.state.keyword} 
                  onChange={this.onChange}/>
         </label>
-        <button className="btn btn-primary" onClick={(e) => {this.props.searchForEvents(e, this.state.keyword)}}>Search</button>
+        <button className="btn btn-secondary btn-sm" onClick={(e) => {this.props.searchForEvents(e, this.state.keyword)}}>Search</button>
         </form>  
+        </div>
+
+
         {
           this.props.results.length > 0 && 
             <Results results={this.props.results}

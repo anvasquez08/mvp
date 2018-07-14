@@ -10,28 +10,33 @@ class Results extends React.Component {
   render() {
     return (
       <div>
-      <h4>Results: </h4>
       <Filter result={this.props.results} cities={this.props.cities} 
               dates={this.props.dates} venues={this.props.venues}
               filteredResultsonClick={this.props.filteredResultsonClick}
               filteredResults={this.props.filteredResults}/>
+      <div className="row">
              {
               this.props.results.map((event, i) => {
                 return (
-                  <div key={i}>
-                    <a href={event.url}>Artist: {event.artist}</a> 
-                    <div>Date: {event.date}</div>  
-                    <div>Address: {event.address}</div>
-                    <div>City: {event.city}</div>
-                    <div>Genre: {event.genre.name}</div>
-                    <div>Venue Name: {event.venueName}</div>
-                    <div>Zipcode: {event.zipcode}</div>   
-                    <img src={event.image}></img>   
-                    <button onClick={() => {this.props.saveToDataBase(event)}}>Save to Favorites</button>              
+                  <div key={i} className='col-md-3'>
+                  <div className="card">
+                  <div className="card-body">
+                    <h5 href={event.url} className="card-title">{event.artist}</h5> 
+                    <a className="card-text">Date: {event.date}</a><br/>  
+                    <a className="card-text">Address: {event.address}</a><br/>
+                    <a className="card-text">City: {event.city}</a><br/>
+                    <a className="card-text">Genre: {event.genre.name}</a><br/>
+                    <a className="card-text">Venue Name: {event.venueName}</a><br/>
+                    <a className="card-text">Zipcode: {event.zipcode}</a>
+                  </div>    
+                    <img className="card-img-top" src={event.image} height="250" width="auto"></img>   
+                    <button onClick={() => {this.props.saveToDataBase(event)}}>Save to Favorites</button>      
+                  </div>        
                   </div>
                   )
               })
             }
+      </div>
       </div>
       )
   }

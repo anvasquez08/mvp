@@ -7,7 +7,7 @@ class Nav extends React.Component {
 	}
 	render() {
 		return (
-			<nav className="navbar navbar-default">
+			<nav  className="p-3 mb-2 bg-info text-white">
 				 	<a className="navbar-brand" >MVP</a>
 			</nav>
 			)

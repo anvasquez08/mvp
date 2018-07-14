@@ -65,7 +65,7 @@ class App extends React.Component {
   }
 
   filteredResultsonClick(category, item) {
-    let filteredResults = [];
+    let filteredResults = []; 
     this.state.eventResults.forEach(event => {
       if (event[category] === item) {
         filteredResults.push(event)
@@ -79,13 +79,15 @@ class App extends React.Component {
 			<div>
 				<Nav/>
         <div className="container-fluid">
-          <button className="btn btn-primary" style={{float:'right'}} 
+          <button className="btn btn-secondary btn-sm" style={{float:'right'}} 
                   onClick={() => {this.setState({viewFavorites: !this.state.viewFavorites})}}>
                   {this.state.viewFavorites ? 'View Saved Favorites' : 'View Search Results'}
           </button>
+
+          <div className="row">
           {
             this.state.viewFavorites === false ? (
-              <div>
+              <div className="col-md-12">
                   <Search searchForEvents={this.searchForEvents}
                           results={this.state.viewResults}
                           saveToDataBase={this.saveToDataBase}
@@ -96,18 +98,20 @@ class App extends React.Component {
                           filteredResults={this.state.filteredResults}/>
               </div>
               ) : (
-              <div>
+              <div className="col-md-12">
                   <Favorites savedFavortes={this.state.savedFavortes} 
                             fetchFromDatabase={this.fetchFromDatabase}
                             deleteFromDatabase={this.deleteFromDatabase} />
               </div>
               )
           }
+          </div>
         </div>
 			</div>
 			)
 	}
 }
+
 
 export default App;
              

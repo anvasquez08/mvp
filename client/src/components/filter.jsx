@@ -17,14 +17,11 @@ class Filter extends React.Component {
     this.setState({value: e.target.value}, ()=> console.log(this.state.value))
   } 
 
-
   render() {
-
     return (
-      <div>
-      {console.log(this.props)}
-      <label>Cities:</label>
-        <select className="dropdown" onChange={this.onChange} value={this.state.value} name="city">
+      <div className="w-100 p-3">
+        <select className="dropdown" onChange={this.onChange} value={this.state.value} name="city" >
+        <option value="" selected disabled>Cities</option>
         {
           this.props.cities.map((city, i) => {
             return (
@@ -33,23 +30,22 @@ class Filter extends React.Component {
           })
         }
        </select>
-
-       <label>Dates:</label>
-      <select className="dropdown">
+      <select className="dropdown" onChange={this.onChange} value={this.state.value} name="date">
+      <option value="" selected disabled>Dates</option>
         {
-          this.props.dates.map((city, i) => {
+          this.props.dates.map((date, i) => {
             return (
-              <option className="dropdown-item" href="#" key={i}>{city}</option>
+              <option className="dropdown-item" key={i}>{date}</option>
               )
           })
         }
        </select>
-       <label>Venues:</label>
-      <select className="dropdown">
+      <select className="dropdown" onChange={this.onChange} value={this.state.value} name="venueName">
+      <option value="" selected disabled>Venues</option>
         {
-          this.props.venues.map((city, i) => {
+          this.props.venues.map((venue, i) => {
             return (
-              <option className="dropdown-item" href="#" key={i}>{city}</option>
+              <option className="dropdown-item" key={i}>{venue}</option>
               )
           })
         }
