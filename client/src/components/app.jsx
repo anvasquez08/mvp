@@ -54,14 +54,22 @@ class App extends React.Component {
   }
 
   setResultAndCategories(data) {
-    let cities = [], dates = [], venues = [];
+    let cities = [], dates = [], venues = [], obj = {};
     data.forEach(event => {
-      cities.push(event.city)
-      dates.push(event.date)
-      venues.push(event.venueName)
+      if (!obj[event.city]) {
+        obj[event.city] = event.city;
+        cities.push(event.city)       
+      }
+      if (!obj[event.date]) {
+        obj[event.date] = event.date;
+        dates.push(event.date)  
+      }
+      if (!obj[event.venueName]) {
+        obj[event.venueName] = event.venueName;        
+        venues.push(event.venueName)       
+      }
     }) 
     this.setState({eventResults: data, viewResults: data, cities, dates, venues});
-
   }
 
   filteredResultsonClick(category, item) {
