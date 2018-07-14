@@ -6,18 +6,17 @@ USE events;
 
 CREATE TABLE events (
 	id INT AUTO_INCREMENT,
-	artist VARCHAR(100), 
+	artist VARCHAR(500), 
 	url VARCHAR(500),
-	image VARCHAR(100), 
-	date VARCHAR(50),
-	genre VARCHAR(100), 
-	venueName VARCHAR(255),
-	address VARCHAR(255), 
-	city VARCHAR(255),
-	zipcode VARCHAR(255),
+	image VARCHAR(500), 
+	date VARCHAR(500),
+	genre VARCHAR(500), 
+	venueName VARCHAR(500),
+	address VARCHAR(500), 
+	city VARCHAR(500),
+	zipcode VARCHAR(500),
 	PRIMARY KEY(id)
 );
-
 
 -- CREATE TABLE customers (
 -- 	id INT AUTO_INCREMENT,

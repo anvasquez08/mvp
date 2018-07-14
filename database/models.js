@@ -18,5 +18,14 @@ module.exports = {
         else resolve(data)
       })
     })
+  },
+  deleteFromData: (id) => {
+    return new Promise((resolve, reject) => {
+      let mysqlQ = `DELETE FROM events WHERE id = ?`
+      db.query(mysqlQ, id, (err, data) => {
+        if (err) reject(err)
+        else resolve(data)
+      })
+    })
   }
 }
